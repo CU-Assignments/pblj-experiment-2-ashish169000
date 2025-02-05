@@ -1,0 +1,62 @@
+Video Class:-
+class Video {
+ private String title;
+ private boolean checkedOut;
+ private double averageRating;
+ private int ratingCount;
+ public Video(String title) {
+ this.title = title;
+ this.checkedOut = false;
+ this.averageRating = 0.0;
+ this.ratingCount = 0;
+ }
+ public void checkOut() {
+ if (!checkedOut) {
+ checkedOut = true;
+ System.out.println("Video \"" + title + "\" has been checked out.");
+ } else {
+ System.out.println("Video \"" + title + "\" is already checked out.");
+ }
+ }
+ public void returnVideo() {
+ if (checkedOut) {
+ checkedOut = false;
+ System.out.println("Video \"" + title + "\" has been returned.");
+ } else {
+ System.out.println("Video \"" + title + "\" was not checked out.");
+ }
+ }
+ public void receiveRating(int rating) {
+ if (rating < 1 || rating > 5) {
+ System.out.println("Invalid rating. Please rate between 1 and 5.");
+ return;
+ }
+ averageRating = (averageRating * ratingCount + rating) / 
+(++ratingCount);
+ System.out.println("Received rating of " + rating + " for video \"" + title + 
+"\".");
+ }
+ public String getTitle() {
+ return title;
+ }
+ public boolean isCheckedOut() {
+ return checkedOut;
+ }
+ public double getAverageRating() {
+ return averageRating;
+ }
+}
+public class VideoStoreLauncher {
+ public static void main(String[] args) {
+ VideoStore store = new VideoStore(10);
+ store.addVideo("The Matrix");
+ store.addVideo("Godfather II");
+ store.addVideo("Star Wars Episode IV: A New Hope");
+ store.receiveRating("The Matrix", 5);
+ store.receiveRating("Godfather II", 4);
+ store.receiveRating("Star Wars Episode IV: A New Hope", 5);
+ store.checkOut("Godfather II");
+ store.returnVideo("Godfather II");
+ store.listInventory();
+ }
+}
